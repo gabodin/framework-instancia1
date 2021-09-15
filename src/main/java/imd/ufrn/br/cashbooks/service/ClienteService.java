@@ -105,7 +105,7 @@ public class ClienteService {
     }
 
 	private void updateData(Cliente entity, Cliente obj) {
-ValidationException exception = new ValidationException("errors");
+		ValidationException exception = new ValidationException("errors");
 		
 		if(obj.getNome() == null) {
 			exception.addError("nome", "campo vazio");

@@ -69,7 +69,7 @@
 	function filtrarData(){
 		var value = $("#dataFiltro").val();
  		$("#movimentacaoTable tr").each(function(){
- 			var dataFiltrada = $(this).children("td:nth-child(5)").text()
+ 			var dataFiltrada = $(this).children("td:nth-child(6)").text()
  			var data = dataFiltrada.split('/');
 			var dataNova = data[2] + "-" + data[1] + "-" + data[0];
  			if(dataNova != value){

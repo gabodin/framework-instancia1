@@ -1,14 +1,15 @@
 package imd.ufrn.br.cashbooks.extensions;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import imd.ufrn.br.cashbooks.interfaces.IRestricoesComprasPrazo;
 import imd.ufrn.br.cashbooks.model.Movimentacao;
 import imd.ufrn.br.cashbooks.service.MovimentacaoService;
 
+@Component
 public class RegraPequenosComerciantes implements IRestricoesComprasPrazo {
 	
 	private static int LIMITE_COMPRAS = 3;
@@ -25,6 +26,7 @@ public class RegraPequenosComerciantes implements IRestricoesComprasPrazo {
 	@Override
 	public boolean validarMovimentacao(Movimentacao mov) {
 		
+		
 		System.out.println(mov.getDataCobranca() + " " + mov.getDataCobranca().isAfter(calcularDataLimite(mov))	);
 		if(mov.getDataCobranca().isAfter(calcularDataLimite(mov))) {
 			return false;
@@ -33,7 +35,7 @@ public class RegraPequenosComerciantes implements IRestricoesComprasPrazo {
 		int count=0;
 		
 		if(mov.getCliente() != null) {
-			for(Movimentacao m : mov.getCliente().getMovimentacoes()) {
+			for(Movimentacao m : serviceMovimentacao.findAllByCliente(mov.getCliente())) {
 				if(!m.isPago()) {
 					count++;
 				}

@@ -49,6 +49,9 @@ public class MovimentacaoService {
 	
 	private IRestricoesComprasPrazo prazoStrategy;
 	
+	@Autowired
+	private RegraPequenosComerciantes regra;
+	
 	
 	public void setCategoriaStrategy (ICategorizarAutomaticamente strategy) {
 		this.categoriaStrategy = strategy;
@@ -91,7 +94,7 @@ public class MovimentacaoService {
 		Usuario prop = op.get();
 		
 		setCategoriaStrategy(new CategorizarPequenosComerciantes());
-		setPrazoStrategy(new RegraPequenosComerciantes());
+		setPrazoStrategy(regra);
 		
 		
 		ValidationException exception = new ValidationException("errors");
@@ -173,7 +176,7 @@ public class MovimentacaoService {
 	
 		ValidationException exception = new ValidationException("errors");
 		
-		if(obj.getCliente().getId() == null) {//Movimentação sem cliente
+		if(obj.getCliente() == null) {//Movimentação sem cliente
 			obj.setCliente(null);
 		}
 		
